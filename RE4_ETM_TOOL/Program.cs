@@ -13,7 +13,7 @@ namespace RE4_ETM_TOOL
         {
             Console.WriteLine("# RE4 ETM TOOL");
             Console.WriteLine("# By JADERLINK");
-            Console.WriteLine("# VERSION 1.0.0");
+            Console.WriteLine("# VERSION 1.0.1 (2024-05-25)");
 
             if (args.Length == 0)
             {

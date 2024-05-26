@@ -64,7 +64,7 @@ namespace RE4_ETM_TOOL
                 idx.Close();
 
                 int counter = 0;
-                etm.Write(new byte[32]);
+                etm.Write(new byte[32]); //header
 
                 foreach (var fname in files)
                 {
@@ -95,6 +95,7 @@ namespace RE4_ETM_TOOL
 
                         var fileStream = info.OpenRead();
                         fileStream.CopyTo(etm.BaseStream);
+                        fileStream.Close();
 
                         etm.Write(new byte[diff]);
 
