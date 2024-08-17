@@ -12,22 +12,42 @@ namespace RE4_ETM_TOOL
         public static void ExtractFile(string file)
         {
             FileInfo fileInfo = new FileInfo(file);
-            string baseName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length);
-            string baseDiretory = fileInfo.DirectoryName;
+
+            string baseDirectory = Path.GetDirectoryName(fileInfo.FullName);
+            string baseFileName = Path.GetFileNameWithoutExtension(fileInfo.FullName);
+
+            string baseFilePath = Path.Combine(baseDirectory, baseFileName);
+
+            string pattern = "^(00)([0-9]{2})$";
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern, System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+
+            if (regex.IsMatch(baseFileName))
+            {
+                baseFilePath = Path.Combine(baseDirectory, baseFileName + "_ETM");
+            }
 
             var etm = new BinaryReader(fileInfo.OpenRead());
             uint Amount = etm.ReadUInt32();
 
-            var idxetm = new FileInfo(baseDiretory + "\\" + baseName + ".idxetm").CreateText();
+            var idxetm = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".idxetm")).CreateText();
             idxetm.WriteLine("# github.com/JADERLINK/RE4-ETM-TOOL");
             idxetm.WriteLine("# youtube.com/@JADERLINK");
             idxetm.WriteLine("# RE4 ETM TOOL By JADERLINK");
+            idxetm.WriteLine();
 
             Console.WriteLine("Amount: " + Amount);
 
             if (Amount != 0)
             {
-                Directory.CreateDirectory(baseDiretory + "\\" + baseName);
+                try
+                {
+                    Directory.CreateDirectory(baseFilePath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error creating directory: " + baseFilePath);
+                    Console.WriteLine(ex);
+                }
 
                 etm.BaseStream.Position = 32;
 
@@ -49,7 +69,7 @@ namespace RE4_ETM_TOOL
 
                     try
                     {
-                        File.WriteAllBytes(baseDiretory + "\\" + baseName + "\\" + name, internalFile);
+                        File.WriteAllBytes(Path.Combine(baseFilePath, name), internalFile);
                     }
                     catch (Exception ex)
                     {

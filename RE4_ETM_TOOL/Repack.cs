@@ -14,13 +14,24 @@ namespace RE4_ETM_TOOL
             StreamReader idx = null;
             BinaryWriter etm = null;
             FileInfo fileInfo = new FileInfo(file);
-            string baseName = fileInfo.Name.Substring(0, fileInfo.Name.Length - fileInfo.Extension.Length);
-            string baseDiretory = fileInfo.DirectoryName;
+
+            string baseDirectory = Path.GetDirectoryName(fileInfo.FullName);
+            string baseFileName = Path.GetFileNameWithoutExtension(fileInfo.FullName);
+
+            string baseFilePath = Path.Combine(baseDirectory, baseFileName);
+
+            string pattern = "^(00)([0-9]{2})$";
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern, System.Text.RegularExpressions.RegexOptions.CultureInvariant);
+
+            if (regex.IsMatch(baseFileName))
+            {
+                baseFilePath = Path.Combine(baseDirectory, baseFileName + "_ETM");
+            }
 
             try
             {
                 idx = new FileInfo(file).OpenText();
-                etm = new BinaryWriter(new FileInfo(baseDiretory + "\\" + baseName + ".ETM").Create(), Encoding.GetEncoding(1252));
+                etm = new BinaryWriter(new FileInfo(Path.Combine(baseDirectory, baseFileName + ".ETM")).Create(), Encoding.GetEncoding(1252));
             }
             catch (Exception ex)
             {
@@ -68,7 +79,7 @@ namespace RE4_ETM_TOOL
 
                 foreach (var fname in files)
                 {
-                    string filePath = baseDiretory + "\\" + baseName + "\\" + fname;
+                    string filePath = Path.Combine(baseFilePath, fname);
                     if (File.Exists(filePath))
                     {
                         //verificação de tamanho do arquivo
