@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using SimpleEndianBinaryIO;
 
 namespace RE4_ETM_TOOL
 {
     internal static class Repack
     {
-        public static void RepackFile(string file)
+        public static void RepackFile(string file, Endianness endianness)
         {
             StreamReader idx = null;
-            BinaryWriter etm = null;
+            EndianBinaryWriter etm = null;
             FileInfo fileInfo = new FileInfo(file);
 
             string baseDirectory = Path.GetDirectoryName(fileInfo.FullName);
@@ -31,7 +32,7 @@ namespace RE4_ETM_TOOL
             try
             {
                 idx = new FileInfo(file).OpenText();
-                etm = new BinaryWriter(new FileInfo(Path.Combine(baseDirectory, baseFileName + ".ETM")).Create(), Encoding.GetEncoding(1252));
+                etm = new EndianBinaryWriter(new FileInfo(Path.Combine(baseDirectory, baseFileName + ".ETM")).Create(), Encoding.GetEncoding(1252), endianness);
             }
             catch (Exception ex)
             {

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{65C6B751-B46F-44DC-8533-5BE5A67491E9}</ProjectGuid>
+    <ProjectGuid>{EF92C0CB-3B14-405E-985C-95A1B2CB6527}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>RE4_ETM_TOOL</RootNamespace>
-    <AssemblyName>RE4_ETM_TOOL</AssemblyName>
+    <RootNamespace>RE4_ETM_TOOL_BIG_ENDIAN</RootNamespace>
+    <AssemblyName>RE4_ETM_TOOL_BIG_ENDIAN</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -25,15 +25,17 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>embedded</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>RE4_ETM_TOOL.Program</StartupObject>
+    <StartupObject>RE4_ETM_TOOL_BIG_ENDIAN.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -49,14 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extract.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repack.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <Import Project="..\RE4_ETM_TOOL\RE4_ETM_TOOL.projitems" Label="Shared" />
+  <Import Project="..\SimpleEndianBinaryIO\SimpleEndianBinaryIO.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

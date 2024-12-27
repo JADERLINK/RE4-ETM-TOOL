@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using SimpleEndianBinaryIO;
 
 namespace RE4_ETM_TOOL
 {
     internal static class Extract
     {
-        public static void ExtractFile(string file)
+        public static void ExtractFile(string file, Endianness endianness)
         {
             FileInfo fileInfo = new FileInfo(file);
 
@@ -26,7 +27,7 @@ namespace RE4_ETM_TOOL
                 baseFilePath = Path.Combine(baseDirectory, baseFileName + "_ETM");
             }
 
-            var etm = new BinaryReader(fileInfo.OpenRead());
+            var etm = new EndianBinaryReader(fileInfo.OpenRead(), endianness);
             uint Amount = etm.ReadUInt32();
 
             var idxetm = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".idxetm")).CreateText();

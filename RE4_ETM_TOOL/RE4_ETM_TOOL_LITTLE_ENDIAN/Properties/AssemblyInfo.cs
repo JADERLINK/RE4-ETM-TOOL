@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associadas a um assembly.
-[assembly: AssemblyTitle("RE4_ETM_TOOL")]
+[assembly: AssemblyTitle("RE4_ETM_TOOL_LITTLE_ENDIAN")]
 [assembly: AssemblyDescription("RE4_ETM_TOOL By JADERLINK")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("JADERLINK")]
-[assembly: AssemblyProduct("RE4_ETM_TOOL")]
+[assembly: AssemblyProduct("RE4_ETM_TOOL_LITTLE_ENDIAN")]
 [assembly: AssemblyCopyright("Copyright ©JADERLINK 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
