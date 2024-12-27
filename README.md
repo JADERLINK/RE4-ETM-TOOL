@@ -6,7 +6,7 @@ Extract and repack RE4 ETM files (RE4 2007/PS2/UHD/PS4/NS/GC/WII/XBOX360)
 Programa destinado a extrair e reempacotar arquivos .ETM
 <br> Ao extrair será gerado um arquivo de extenção .idxetm, ele será usado para o repack.
 
-**Update B.1.1.0**
+**Update V.1.1.0**
 <br>Adicionado suporte para as versões GC/WII/XBOX360;
 
 **Update V.1.0.2**
