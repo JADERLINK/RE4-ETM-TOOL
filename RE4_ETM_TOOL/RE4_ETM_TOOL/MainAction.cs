@@ -10,7 +10,15 @@ namespace RE4_ETM_TOOL
     {
         public static void Continue(string[] args, Endianness endianness) 
         {
-            for (int i = 0; i < args.Length; i++)
+            bool usingBatFile = false;
+            int start = 0;
+            if (args.Length > 0 && args[0].ToLowerInvariant() == "-bat")
+            {
+                usingBatFile = true;
+                start = 1;
+            }
+
+            for (int i = start; i < args.Length; i++)
             {
                 if (File.Exists(args[i]))
                 {
@@ -41,6 +49,11 @@ namespace RE4_ETM_TOOL
             else
             {
                 Console.WriteLine("Finished!!!");
+                if (!usingBatFile)
+                {
+                    Console.WriteLine("Press any key to close the console.");
+                    Console.ReadKey();
+                }
             }
 
         }

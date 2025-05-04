@@ -30,6 +30,13 @@ namespace RE4_ETM_TOOL
             var etm = new EndianBinaryReader(fileInfo.OpenRead(), endianness);
             uint Amount = etm.ReadUInt32();
 
+            if (Amount > 0x10000)
+            {
+                Console.WriteLine("Invalid ETM file!");
+                etm.Close();
+                return;
+            }
+
             var idxetm = new FileInfo(Path.Combine(baseDirectory, baseFileName + ".idxetm")).CreateText();
             idxetm.WriteLine("# github.com/JADERLINK/RE4-ETM-TOOL");
             idxetm.WriteLine("# youtube.com/@JADERLINK");
